@@ -137,11 +137,11 @@ dmypy.json
 
 # data folder
 models/data/
-
+*.jar
 *.npy
-
+*.pdf
 *.pt
-# *.model
+*.model
 stanford-ner-2020-11-17/
 *.pkl
 *.joblib
