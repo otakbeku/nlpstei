@@ -45,7 +45,7 @@ sentences_1 = [sent.split() for sent in sentences]
 common_terms = []
 for key in freq_unique_words_per_genre.keys():
     common_terms += heapq.nlargest(
-        5000, freq_unique_words_per_genre[key], key=freq_unique_words_per_genre[key].get)
+        2500, freq_unique_words_per_genre[key], key=freq_unique_words_per_genre[key].get)
 common_terms = set(common_terms)
 
 # Creating the parser
@@ -58,12 +58,12 @@ ngrams_sent = list(ngram[sentences_1])
 
 
 # Train word2vec
-path = get_tmpfile("fifteenklyricswv_w5ns5_notcleaned_nopad.model")
+path = get_tmpfile("fifteenklyricswv_w5ns5_notcleaned_nopad_2.model")
 cores = multiprocessing.cpu_count()
-wvmodel = Word2Vec(min_count=1,
+wvmodel = Word2Vec(min_count=5,
                    window=5,
                    size=300,
-                   sample=6e-5,
+                   sample=0.001,
                    alpha=0.03,
                    min_alpha=0.0007,
                    workers=cores-1)
@@ -76,6 +76,6 @@ wvmodel.train(ngrams_sent, total_examples=wvmodel.corpus_count,
               epochs=50, report_delay=1)
 print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
 print(f'{np.shape(wvmodel.wv.vectors)}')
-wvmodel.save('fifteenklyricswv_w5ns5_notcleaned_nopad.model')
+wvmodel.save('fifteenklyricswv_w5ns5_notcleaned_nopad_2.model')
 
 print('saved!')
