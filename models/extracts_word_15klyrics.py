@@ -2,6 +2,7 @@ import pandas as pd
 from time import time
 from nltk.tokenize import line_tokenize, word_tokenize
 from tqdm import tqdm
+import numpy as np
 
 
 
@@ -39,14 +40,19 @@ lyrics_pos_tagger = {
 #             lyrics_pos_tagger['UPOS'].append(word.upos)
 #         max_length_sent = max(max_length_sent, curr_max_length)
 t = time()
-
-max_length_sent = 0
+# max_length_sent = 20
 for song_id, song_info in tqdm(data.iterrows()):
-    doc = line_tokenize(song_info.lyric)
-    index = max(range(len(doc)), key=lambda i: len(word_tokenize(doc[i])))
-    curr_max_length = len(word_tokenize(doc[index]))
-    max_length_sent = max(max_length_sent, curr_max_length)
+    doc = line_tokenize(song_info.lyric.replace(',','\n'))
     for sent in doc:
+        # if len(word_tokenize(sent)) > max_length_sent:
+        #     docx = np.array_split(word_tokenize(sent), max_length_sent)
+        #     for sentx in docx:
+        #         sentx = ' '.join(sentx)
+        #         lyrics_pos_tagger['artist'].append(song_info.artist)
+        #         lyrics_pos_tagger['song_name'].append(song_info.song_name)
+        #         lyrics_pos_tagger['song_id'].append(song_id)
+        #         lyrics_pos_tagger['sent'].append(sentx)
+        #     continue
         lyrics_pos_tagger['artist'].append(song_info.artist)
         lyrics_pos_tagger['song_name'].append(song_info.song_name)
         lyrics_pos_tagger['song_id'].append(song_id)
@@ -55,5 +61,6 @@ for song_id, song_info in tqdm(data.iterrows()):
     
 print('Time to extract POS tagging: {} mins'.format(round((time() - t) / 60, 2)))
 df = pd.DataFrame(lyrics_pos_tagger)
-df.to_csv('Sentences_15klyrics.csv', index=False)
+# df.to_csv('sentences_15klyrics_mls_{}.csv'.format(max_length_sent), index=False)
+df.to_csv('sentences_15klyrics.csv', index=False)
 print('saved!')
