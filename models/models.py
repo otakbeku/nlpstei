@@ -51,7 +51,7 @@ class Simple_LSTM(nn.Module):
 
 class Simple_Sequence_LSTM(nn.Module):
     def __init__(self, args):
-        super(Simple_LSTM, self).__init__()
+        super(Simple_Sequence_LSTM, self).__init__()
 
         # Hyperparameters
         # self.batch_size = args.batch_size
