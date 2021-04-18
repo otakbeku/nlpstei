@@ -146,3 +146,15 @@ stanford-ner-2020-11-17/
 *.pkl
 *.joblib
 .google-cookie
+
+
+# latex
+latex
+
+models/EsperBERTo
+models/lightning_logs_T5/*
+models/runs
+models/wandb
+models/shuff-orig
+models/eo.txt.gz
+models/eo.txt/shuff-orig/eo/eo.txt.gz
