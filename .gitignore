@@ -158,3 +158,5 @@ models/wandb
 models/shuff-orig
 models/eo.txt.gz
 models/eo.txt/shuff-orig/eo/eo.txt.gz
+models/oscar.eo.txt
+models/esperberto-merges.txt
